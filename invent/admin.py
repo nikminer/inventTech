@@ -9,11 +9,13 @@ from invent.availableFilter import AvailableTechFilter
 
 @admin.register(Manufacture)
 class ManufactureAdmin(admin.ModelAdmin):
-    list_display = [ 'name', 'show_tech']
-    search_fields = ("name__startswith",)
+    list_display = [ 'name', 'show_tech'] # Указываем какие колнки отображаются в общем списке
+    search_fields = ("name__startswith",) # Указываем по каким полям производится поиск
 
+    # Специализированный display поле отображающий кол-во записей в журнале техники имеющих текущего производителя.
     @admin.display(empty_value='0', description="Количество")
     def show_tech(self, obj):
+        # Делаем запрос к таблице 
         count = Tech.objects.filter(modelTech__manufacture__name=obj).count()
         url = (
             reverse("admin:invent_tech_changelist")

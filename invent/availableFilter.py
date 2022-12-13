@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from django.contrib.admin import SimpleListFilter
 
 class AvailableTechFilter(SimpleListFilter):
